@@ -1,0 +1,68 @@
+# Importing datetime module for date and time operations
+from datetime import datetime
+
+# Dictionary to store tasks
+tasks = {}
+
+# Function to display menu options
+def display_menu():
+    print("\nTo-Do List Application")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Mark Task as Completed")
+    print("4. Delete Task")
+    print("5. Exit")
+
+# Function to add a task
+def add_task():
+    task_name = input("Enter task name: ")
+    tasks[task_name] = {"completed": False, "created_at": datetime.now()}
+
+# Function to view tasks
+def view_tasks():
+    print("\nTasks:")
+    for index, (task, info) in enumerate(tasks.items(), start=1):
+        status = "Completed" if info["completed"] else "Pending"
+        created_at = info["created_at"].strftime("%Y-%m-%d %H:%M:%S")
+        print(f"{index}. {task} - Status: {status} (Created: {created_at})")
+
+# Function to mark a task as completed
+def mark_completed():
+    task_name = input("Enter task name to mark as completed: ")
+    if task_name in tasks:
+        tasks[task_name]["completed"] = True
+        print(f"{task_name} marked as completed.")
+    else:
+        print(f"Task '{task_name}' not found.")
+
+# Function to delete a task
+def delete_task():
+    task_name = input("Enter task name to delete: ")
+    if task_name in tasks:
+        del tasks[task_name]
+        print(f"{task_name} deleted.")
+    else:
+        print(f"Task '{task_name}' not found.")
+
+# Main function to run the application
+def main():
+    while True:
+        display_menu()
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            add_task()
+        elif choice == "2":
+            view_tasks()
+        elif choice == "3":
+            mark_completed()
+        elif choice == "4":
+            delete_task()
+        elif choice == "5":
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
